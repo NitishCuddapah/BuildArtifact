@@ -1,0 +1,20 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      python: 3.11
+    commands:
+      - echo "Installing dependencies..."
+      - pip install -r requirements.txt
+  build:
+    commands:
+      - echo "Starting build..."
+      - python main.py
+  post_build:
+    commands:
+      - echo "Build finished on `date`"
+      - git init
+      - git remote origin https://${GITHUB_TOKEN}@github.com/NitishCuddapah/BuildArtifact.git
+artifacts:
+  files:
+    - '**/*'
