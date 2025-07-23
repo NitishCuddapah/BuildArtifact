@@ -14,7 +14,13 @@ phases:
     commands:
       - echo "Build finished on `date`"
       - git init
-      - git remote origin https://${GITHUB_TOKEN}@github.com/NitishCuddapah/BuildArtifact.git
+      - git config user.name "NitishCuddapah"
+      - git config user.email "nitishcuddapah.7@gmail.com"
+      - git remote add origin https://${secrets}@github.com/NitishCuddapah/BuildArtifact.git
+      - git branch -M main
+      - git add .
+      - git commit -m "Upload build artifact from codebuild"
+      - git push -u origin main
 artifacts:
   files:
     - '**/*'
