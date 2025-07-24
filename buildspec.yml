@@ -21,7 +21,7 @@ phases:
       - echo "Build completed on `date`"
 
       # Cloning the same GitHub repo into a temp folder
-      - git clone https://${github-secret-token}@github.com/NitishCuddapah/BuildArtifact.git temp-repo
+      - git clone https://${Token}@github.com/NitishCuddapah/BuildArtifact.git temp-repo
       - cd temp-repo
 
       - git config user.name "NitishCuddapah"
@@ -36,7 +36,7 @@ phases:
       # Commit and push the new artifact
       - git add build-artifacts/
       - git commit -m "Add new artifact - $(date)"
-      - git remote set-url origin https://${github-secret-token}@github.com/NitishCuddapah/BuildArtifact.git
+      - git remote set-url origin https://${Token}@github.com/NitishCuddapah/BuildArtifact.git
       - git push origin main
 
 artifacts:
