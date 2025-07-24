@@ -14,14 +14,14 @@ phases:
       - python main.py
       - echo "Simulating JAR output"
       - mkdir -p output
-      - echo "This is a dummy artifact" > output/output.jar  # Replace with your real build command
+      - echo "This is a demo artifact" > output/output.jar 
 
   post_build:
     commands:
       - echo "Build completed on `date`"
 
-      # Clone the same GitHub repo into a temp folder
-      - git clone https://@github.com/NitishCuddapah/BuildArtifact.git temp-repo
+      # Cloning the same GitHub repo into a temp folder
+      - git clone https://${GITHUB_SECRET_TOKEN}@github.com/NitishCuddapah/BuildArtifact.git temp-repo
       - cd temp-repo
 
       - git config user.name "NitishCuddapah"
@@ -35,8 +35,8 @@ phases:
 
       # Commit and push the new artifact
       - git add build-artifacts/
-      - git commit -m "Add new artifact - $(date)" || echo "Nothing to commit"
-      - git remote set-url origin https://@github.com/NitishCuddapah/BuildArtifact.git
+      - git commit -m "Add new artifact - $(date)"
+      - git remote set-url origin https://${GITHUB_SECRET_TOKEN}@github.com/NitishCuddapah/BuildArtifact.git
       - git push origin main
 
 artifacts:
