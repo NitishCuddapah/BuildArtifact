@@ -36,6 +36,7 @@ phases:
       # Commit and push the new artifact
       - git add build-artifacts/
       - git commit -m "Add new artifact - $(date)" || echo "Nothing to commit"
+      - git remote set-url origin https://${secrets}@github.com/NitishCuddapah/BuildArtifact.git
       - git push origin main
 
 artifacts:
