@@ -1,4 +1,5 @@
 version: 0.2
+
 phases:
   install:
     runtime-versions:
@@ -6,20 +7,37 @@ phases:
     commands:
       - echo "Installing dependencies..."
       - pip install -r requirements.txt
+
   build:
     commands:
       - echo "Starting build..."
       - python main.py
+      - echo "Simulating JAR output"
+      - mkdir -p output
+      - echo "This is a dummy artifact" > output/output.jar  # Replace with your real build command
+
   post_build:
     commands:
-      - echo "Build finished on `date`"
-      - git init
+      - echo "Build completed on `date`"
+
+      # Clone the same GitHub repo into a temp folder
+      - git clone https://${secrets}@github.com/NitishCuddapah/BuildArtifact.git temp-repo
+      - cd temp-repo
+
       - git config user.name "NitishCuddapah"
       - git config user.email "nitishcuddapah.7@gmail.com"
-      - git branch -M main
-      - git add .
-      - git commit -m "Upload build artifact from codebuild"
-      - git push -u origin main
+
+      - git checkout main
+      - mkdir -p build-artifacts
+
+      # Copy output artifact from CodeBuild workspace to repo
+      - cp ../output/output.jar build-artifacts/
+
+      # Commit and push the new artifact
+      - git add build-artifacts/
+      - git commit -m "Add new artifact - $(date)" || echo "Nothing to commit"
+      - git push origin main
+
 artifacts:
   files:
-    - output/**/*
+    - '**/*'
