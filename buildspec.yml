@@ -37,7 +37,8 @@ phases:
       - git add build-artifacts/
       - git commit -m "Add new artifact - $(date)"
       - git remote set-url origin https://${GITHUB_TOKEN}@github.com/NitishCuddapah/BuildArtifact.git
-      - git push origin main
+      - git push https://${GITHUB_TOKEN}@github.com/NitishCuddapah/BuildArtifact.git HEAD:main
+
 
 artifacts:
   files:
