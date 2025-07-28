@@ -19,16 +19,18 @@ phases:
     commands:
       - echo "Build completed on `date`"
 
+      # Clone the same GitHub repo into a temp folder
       - git clone https://${GITHUB_TOKEN}@github.com/NitishCuddapah/BuildArtifact.git temp-repo
       - cd temp-repo
 
+      # Set Git identity for commit
       - git config user.name "NitishCuddapah"
       - git config user.email "nitishcuddapah.7@gmail.com"
-      - git config user.password "Vasantcoc07"
 
       - git checkout main
       - mkdir -p build-artifacts
 
+      # Copy and commit the artifact
       - cp ../output/artifact.txt build-artifacts/
       - git add build-artifacts/
       - git commit -m "Add new artifact - $(date)" || echo "Nothing to commit"
