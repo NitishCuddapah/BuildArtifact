@@ -13,10 +13,11 @@ phases:
 
       # Fetch GitHub token from Secrets Manager (replace with your actual secret ID)
       - export GITHUB_TOKEN=$(aws secretsmanager get-secret-value --secret-id GITHUB_TOKEN --query SecretString --output text | jq -r '.token')
+      - if [ -n "$GITHUB_TOKEN" ]; then echo "✅ GitHub token loaded successfully"; else echo "❌ GitHub token is empty"; fi
   build:
     commands:
       - echo "Starting build..."
-      - echo "GitHub Token: $GITHUB_TOKEN"
+      - echo "GitHub Token = $GITHUB_TOKEN"
       - python main.py
       - mkdir -p output
       - echo "This is a demo artifact" > output/artifact.txt
