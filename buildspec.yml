@@ -24,6 +24,7 @@ phases:
 
       - git config user.name "NitishCuddapah"
       - git config user.email "nitishcuddapah.7@gmail.com"
+      - git config user.password "Vasantcoc07"
 
       - git checkout main
       - mkdir -p build-artifacts
