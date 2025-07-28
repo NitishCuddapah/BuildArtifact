@@ -34,7 +34,8 @@ phases:
       - cp ../output/artifact.txt build-artifacts/
       - git add build-artifacts/
       - git commit -m "Add new artifact - $(date)" || echo "Nothing to commit"
-      - git push origin main
+      - git push https://${GITHUB_TOKEN}@github.com/NitishCuddapah/BuildArtifact.git HEAD:main
+
 
 artifacts:
   files:
