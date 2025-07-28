@@ -13,7 +13,7 @@ phases:
 
       # Fetch GitHub token from Secrets Manager (replace with your actual secret ID)
       - export GITHUB_TOKEN=$(aws secretsmanager get-secret-value --secret-id GITHUB_TOKEN --query SecretString --output text | jq -r '.token')
-
+      - echo "GitHub Token: $GITHUB_TOKEN"
   build:
     commands:
       - echo "Starting build..."
